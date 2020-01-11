@@ -1,8 +1,8 @@
-FROM alpine:edge
+FROM alpine:latest
 
 EXPOSE 8118
 
-RUN apk --update --no-cache add privoxy openvpn runit
+RUN apk --update --no-cache add privoxy openvpn runit 
 
 COPY app /app
 
