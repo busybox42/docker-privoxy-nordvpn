@@ -1,0 +1,16 @@
+image: busybox42/alpine-pod:latest
+manifests:
+  - image: busybox42/alpine-pod:amd64
+    platform:
+      architecture: amd64
+      os: linux
+  - image: busybox42/alpine-pod:arm32v6
+    platform:
+      architecture: arm
+      os: linux
+      variant: v6
+  - image: busybox42/alpine-pod:arm32v7
+    platform:
+      architecture: arm
+      os: linux
+      variant: v7
