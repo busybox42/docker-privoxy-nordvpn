@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: privoxy-nordvpn-service
+  namespace: default
+spec:
+  type: NodePort
+  ports:
+    - name: privoxy
+      port: 8118
+      protocol: TCP
+  selector:
+    app: privoxy-nordvpn
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: privoxy-nordvpn
+  namespace: default
+  labels:
+    app: privoxy-nordvpn
+spec:
+  selector:
+    matchLabels:
+      app: privoxy-nordvpn
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: privoxy-nordvpn
+    spec:
+      containers:
+      - name: privoxy-nordvpn
+        image: busybox42/docker-privoxy-nordvpn:latest
+        imagePullPolicy: Always
+        securityContext:
+          privileged: true
+        ports:
+        - containerPort: 8118
+        env:
+        - name: REGION
+          value: "us6298"
+        - name: PROTOCOL
+          value: "tcp"
+        - name: USERNAME
+          value: "null"
+        - name: PASSWORD
+          value: "null"
+      dnsPolicy: "None"
+      dnsConfig:
+        nameservers:
+          - 103.86.96.100
+          - 103.86.99.100
+   
